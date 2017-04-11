@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Category;
-use DB;
+
 use Validator;
 
 class CategoryController extends Controller
@@ -24,7 +24,8 @@ class CategoryController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $category = DB::table('categories')->get()->where('user_id',$id);
+        //$category = DB::table('categories')->
+        $category = $this->category->get()->where('user_id',$id);
         //$category = DB::table('categories')->get()->first();
         return view('categories', ['category' => $category]);
     }
