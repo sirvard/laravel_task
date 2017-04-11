@@ -7,12 +7,15 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
 
     <title>{{ config('app.name', 'Blog') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/font-awesome.min.css')}}">
+    
 
     <!-- Scripts -->
     <script>
@@ -39,6 +42,14 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Blog') }}
                     </a>
+                    @if(Auth::id())
+                        <a class="navbar-brand" href="{{url('/categories')}}">
+                            Categories
+                        </a>
+                        <a class="navbar-brand" href="{{url('/posts')}}">
+                            Posts
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -84,5 +95,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/init.js') }}" type="text/javascript"></script>
+
 </body>
 </html>

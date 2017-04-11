@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('home', ['user' => $user]);
+        $id = Auth::id();   
+        $categories = DB::table('categories')->where('user_id', $id)->get();
+        return view('home', ['user' => $user , 'categories' =>$categories]);
     }
 }

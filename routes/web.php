@@ -23,5 +23,16 @@ Route::get('/home', 'HomeController@index');
 });*/
 
 Route::resource('/user','UserController');
-Route::resource('/addCategory', 'CategoryController');
+Route::post('/addCategory', 'CategoryController@store');
+Route::get('/categories', 'CategoryController@index');
+Route::get('/posts', 'PostController@index');
+Route::delete('/delete/{id}', 'CategoryController@destroy');
+//Route::post('/editCategory', 'CategoryController@edit');
+Route::post('/addPost', 'PostController@store'); 
+/*Route::delete('/delete/{delete_id}', function($id){
+	
+});*/
+Route::resource('/editCategory', 'CategoryController');
+Route::resource('/editPost', 'PostController');
+Route::delete('/deletePost/{id}', 'PostController@destroy');
 

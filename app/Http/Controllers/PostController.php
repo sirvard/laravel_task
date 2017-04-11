@@ -3,30 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use App\Category;
+use App\Post;
 use DB;
+use Auth;
 use Validator;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
-
-    public function __construct(Category $category)
-    {
-        $this->category = $category;
-
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(Post $post){
+        $this->post = $post;
+
+    }
+
     public function index()
     {
         $id = Auth::id();
         $category = DB::table('categories')->get()->where('user_id',$id);
-        //$category = DB::table('categories')->get()->first();
-        return view('categories', ['category' => $category]);
+        $posts = $this->post->all();
+        return view('post', ['posts' => $posts]);
     }
 
     /**
@@ -48,23 +47,24 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'category_name' => 'required',
+            'post' => 'required',
         ]);
         if($validator->fails()){
-            return redirect()->back()->with('msg',"Fill the field!");
+            return redirect()->back()->with('fail',"Fill all fields!");
 
         }
-        $category_name = $request->input('category_name');
-        $user_id = Auth::user()->id;
-        $response = $this->category->create([
-            'category_name'  => $category_name,
-            'user_id'        => $user_id   
+        $post = $request->input('post');
+        $category_id = $request->input('category_id');
+        $resp = $this->post->create([
+            'post'        => $post,
+            'category_id' => $category_id,
         ]);
-        if($response) {
-            return redirect()->back()->with('success', 'Category has created successfully!');
-        } else {
-            return redirect()->back()->with('error', 'Something went wrong!');
+        if($resp){
+            return redirect()->back()->with('yes','Post has added successfully!');
+        }else{
+            return redirect()->back->with('fail','Something went wrong!');
         }
+        
     }
 
     /**
@@ -98,12 +98,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-  
-        $new_category = $request->input('edit_category');
-        //dd($new_category);
-        $response = $this->category->where('id',$id)->update(['category_name' => $new_category]);
+        $new_post = $request->input('edit_post');
+        $response = $this->post->where('id',$id)->update(['post' => $new_post]);
         if($response){
-            return redirect()->back()->with('edited', 'Category edited successfully!');
+            return redirect()->back()->with('edited',"Post has edited successfully!");
         }else{
             return redirect()->back()->with('error_msg', 'Something went wrong!');
         }
@@ -117,11 +115,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $res = $this->category->where('id',$id)->delete();
-        if($res){
+        $res = $this->post->where('id',$id)->delete();
+        if($res) {
             return redirect()->back();
-        }else{
-            return redirect()->back()->with('msg', 'Something went wrong!');
         }
     }
 }

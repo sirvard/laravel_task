@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+        //dd($user);
         return view('home', ['user' => $user]);
     }
 
@@ -81,7 +81,6 @@ class UserController extends Controller
      */
     public function update(ImageRequest $request,  $id)
     {   
-    
 
         if($id == Auth::id()){
             $image = $request->file('image');
@@ -90,9 +89,8 @@ class UserController extends Controller
             $user = $this->user->where('id', $id)->first();
             $inputs['avatar'] = $imagename;
             $user->update($inputs);
-            dd('uploaded');
-
-
+            return redirect()->action('HomeController@index');
+            //dd('uploaded');
         }
         
     }
