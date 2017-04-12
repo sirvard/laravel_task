@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
+use App\User;
 use DB;
 use Auth;
 use Validator;
@@ -15,16 +17,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(Post $post){
+    public function __construct(Post $post, Category $category, User $user){
         $this->post = $post;
-
+        $this->category = $category;
+        $this->user = $user;
     }
 
     public function index()
     {
-        $id = Auth::id();
-        $category = DB::table('categories')->get()->where('user_id',$id);
-        $posts = $this->post->all();
+        $posts = [];
+        $user = $this->user->where('id', Auth::id())->first();
+        $categories_ids = $user->categories->pluck('id')->toArray();
+        $posts = $this->post->whereIn('category_id', $categories_ids)->get();
         return view('post', ['posts' => $posts]);
     }
 

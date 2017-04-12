@@ -21,7 +21,10 @@ Route::get('/home', 'HomeController@index');
 /*Route::get('/home', function(){
 	return view('home');
 });*/
-
+/*Facebook login routes*/
+Route::get('auth/facebook', 'AuthController@redirect');
+Route::get('auth/facebook/callback', 'AuthController@callback');
+/*Facebook login routes*/
 Route::resource('/user','UserController');
 Route::post('/addCategory', 'CategoryController@store');
 Route::get('/categories', 'CategoryController@index');
@@ -35,4 +38,6 @@ Route::post('/addPost', 'PostController@store');
 Route::resource('/editCategory', 'CategoryController');
 Route::resource('/editPost', 'PostController');
 Route::delete('/deletePost/{id}', 'PostController@destroy');
+
+
 
