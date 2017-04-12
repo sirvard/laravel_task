@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Category;
-
 use Validator;
 
 class CategoryController extends Controller
@@ -24,9 +23,7 @@ class CategoryController extends Controller
     public function index()
     {
         $id = Auth::id();
-        //$category = DB::table('categories')->
-        $category = $this->category->get()->where('user_id',$id);
-        //$category = DB::table('categories')->get()->first();
+        $category = $this->category->get()->where('user_id', $id);
         return view('categories', ['category' => $category]);
     }
 
@@ -51,17 +48,19 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'category_name' => 'required',
         ]);
-        if($validator->fails()){
-            return redirect()->back()->with('msg',"Fill the field!");
 
+        if ($validator->fails()) {
+            return redirect()->back()->with('msg', "Fill the field!");
         }
+
         $category_name = $request->input('category_name');
         $user_id = Auth::user()->id;
         $response = $this->category->create([
             'category_name'  => $category_name,
             'user_id'        => $user_id   
         ]);
-        if($response) {
+
+        if ($response) {
             return redirect()->back()->with('success', 'Category has created successfully!');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
@@ -99,13 +98,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-  
         $new_category = $request->input('edit_category');
-        //dd($new_category);
-        $response = $this->category->where('id',$id)->update(['category_name' => $new_category]);
-        if($response){
+        $response = $this->category->where('id', $id)->update(['category_name' => $new_category]);
+
+        if ($response) {
             return redirect()->back()->with('edited', 'Category edited successfully!');
-        }else{
+        } else {
             return redirect()->back()->with('error_msg', 'Something went wrong!');
         }
     }
@@ -118,10 +116,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $res = $this->category->where('id',$id)->delete();
-        if($res){
+        $res = $this->category->where('id', $id)->delete();
+
+        if ($res) {
             return redirect()->back();
-        }else{
+        } else {
             return redirect()->back()->with('msg', 'Something went wrong!');
         }
     }

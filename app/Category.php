@@ -10,7 +10,8 @@ class Category extends Model
         'category_name', 'user_id'
     ];
 
-    public function user(){
+    public function user()
+    {
     	return $this->belongsTo('App\User');
     }
 
@@ -20,4 +21,3 @@ class Category extends Model
     }
 
 }
-

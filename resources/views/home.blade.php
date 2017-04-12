@@ -25,13 +25,8 @@
             </form>
         </div>
         
-        <div class="col-md-4">
-        
-
-       </div>
-       <div class="col-md-4">
-            
-        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
     </div>
 </div>
 
@@ -42,21 +37,21 @@
             @if (session('success'))
                 <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('success') }}
+                    {{ session('success') }}
                 </div>
             @endif
 
             @if (session('msg'))
                 <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('msg') }}
+                    {{ session('msg') }}
                 </div>
             @endif
 
             @if (session('error'))
                 <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('error') }}
+                    {{ session('error') }}
                 </div>
             @endif
             <h2>Categories</h2>
@@ -76,14 +71,14 @@
             @if (session('yes'))
                 <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('yes') }}
+                    {{ session('yes') }}
                 </div>
             @endif
 
             @if (session('fail'))
                 <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('fail') }}
+                    {{ session('fail') }}
                 </div>
             @endif
             <h2>Add Post</h2>

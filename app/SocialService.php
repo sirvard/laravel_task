@@ -23,7 +23,7 @@ class SocialService
 
             $user = User::whereEmail($providerUser->getEmail())->first();
 
-            if (!$user) {
+            if (! $user) {
 
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
@@ -35,7 +35,6 @@ class SocialService
             $account->user()->associate($user);
             $account->save();
             return $user;
-
         }
 
     }

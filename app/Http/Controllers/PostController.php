@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use App\User;
-use DB;
 use Auth;
 use Validator;
 
@@ -53,20 +52,22 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'post' => 'required',
         ]);
-        if($validator->fails()){
-            return redirect()->back()->with('fail',"Fill all fields!");
 
+        if ($validator->fails()) {
+            return redirect()->back()->with('fail', "Fill all fields!");
         }
+
         $post = $request->input('post');
         $category_id = $request->input('category_id');
         $resp = $this->post->create([
             'post'        => $post,
             'category_id' => $category_id,
         ]);
-        if($resp){
-            return redirect()->back()->with('yes','Post has added successfully!');
-        }else{
-            return redirect()->back->with('fail','Something went wrong!');
+
+        if ($resp) {
+            return redirect()->back()->with('yes', 'Post has added successfully!');
+        } else {
+            return redirect()->back->with('fail', 'Something went wrong!');
         }
         
     }
@@ -104,9 +105,10 @@ class PostController extends Controller
     {
         $new_post = $request->input('edit_post');
         $response = $this->post->where('id',$id)->update(['post' => $new_post]);
-        if($response){
-            return redirect()->back()->with('edited',"Post has edited successfully!");
-        }else{
+
+        if ($response) {
+            return redirect()->back()->with('edited', "Post has edited successfully!");
+        } else {
             return redirect()->back()->with('error_msg', 'Something went wrong!');
         }
     }
@@ -119,8 +121,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $res = $this->post->where('id',$id)->delete();
-        if($res) {
+        $res = $this->post->where('id', $id)->delete();
+
+        if ($res) {
             return redirect()->back();
         }
     }

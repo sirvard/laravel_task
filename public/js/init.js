@@ -1,9 +1,7 @@
 $(document).ready(function () {
 
     $('#choose_cat').on('change',function () {
-        var category_id = $(this).val();
-        //console.log(category_id);
-        
+        var category_id = $(this).val();  
     });
 
     $('.category_delete').on('click', function(){

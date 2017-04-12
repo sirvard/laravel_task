@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,6 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        //dd($user);
         return view('home', ['user' => $user]);
     }
 
@@ -79,10 +79,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ImageRequest $request,  $id)
+    public function update(ImageRequest $request, $id)
     {   
 
-        if($id == Auth::id()){
+        if ($id == Auth::id()) {
             $image = $request->file('image');
             $imagename = time() . '.' . $image->extension();
             $request->file('image')->move(public_path() . '/images/', $imagename);
@@ -90,7 +90,6 @@ class UserController extends Controller
             $inputs['avatar'] = $imagename;
             $user->update($inputs);
             return redirect()->action('HomeController@index');
-            //dd('uploaded');
         }
         
     }

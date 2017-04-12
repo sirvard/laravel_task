@@ -9,17 +9,18 @@ use App\SocialService;
 
 class AuthController extends Controller
 {
-    public function redirect(){
+    public function redirect()
+    {
     	//dd(Socialite::driver('facebook'));
     	return Socialite::driver('facebook')->redirect(); 
     } 
 
-    public function callback(SocialService $service) {
-    	// dd(Socialite::driver('facebook'));
+    public function callback(SocialService $service) 
+    {
 		$user = Socialite::driver('facebook')->user();
 		$authUser = $service->createOrGetUser($user);
 		
-		if($authUser){
+		if ($authUser) {
 			Auth::login($authUser,true);
             return redirect('home');
 		}

@@ -59,20 +59,19 @@
 
 <div class="container">
    	<div class="row">
-   		<div class="col-md-1">
-   		</div>
+   		<div class="col-md-1"></div>
    		<div class="col-md-10">
    			@if (session('edited'))
                 <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('edited') }}
+                    {{ session('edited') }}
                 </div>
             @endif
 
             @if (session('error_msg'))
                 <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('error_msg') }}
+                    {{ session('error_msg') }}
                 </div>
             @endif
    			<ul class="list-group">
@@ -80,21 +79,18 @@
    				<li class="list-group-item post_list">
    					<div class="cont">
 	   					<h4>{{$post->category->category_name}}</h4>
-	   					<p class="post">{{$post->post}}</p>
+	   					<p class="post">{{ $post->post }}</p>
 	   				</div>
    					<span class="icon_cont">
-                        <i class="fa fa-pencil-square-o post_edit" data-toggle="modal" data-target="#editPost" aria-hidden="true" data-id="{{$post->id}}"></i>
-                        <i class="fa fa-times post_delete" data-toggle="modal" data-target="#deleteModal" aria-hidden="true" data-id="{{$post->id}}"></i>
+                        <i class="fa fa-pencil-square-o post_edit" data-toggle="modal" data-target="#editPost" aria-hidden="true" data-id="{{ $post->id }}"></i>
+                        <i class="fa fa-times post_delete" data-toggle="modal" data-target="#deleteModal" aria-hidden="true" data-id="{{ $post->id }}"></i>
                     </span>
-                    <div class="time">{{$post->created_at}}</div>
+                    <div class="time">{{ $post->created_at }}</div>
    				</li>
    			@endforeach
    			</ul>
    		</div>
-   		<div class="col-md-1">
-   			
-   		</div>
+   		<div class="col-md-1"></div>
    	</div>
 </div>
-
 @endsection

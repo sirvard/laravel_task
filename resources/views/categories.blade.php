@@ -62,39 +62,33 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-           <h2>Categories</h2>
-           @if (session('edited'))
+            <h2>Categories</h2>
+            @if (session('edited'))
                 <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('edited') }}
+                    {{ session('edited') }}
                 </div>
             @endif
 
             @if (session('msg'))
                 <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('msg') }}
+                    {{ session('msg') }}
                 </div>
             @endif
 
             <ul class="list-group">
                 @foreach($category as $category)
-                <li class="list-group-item">{{ $category->category_name}}
-                    <span class="icon_cont">
-                        <i class="fa fa-pencil-square-o category_edit" data-toggle="modal" data-target="#editModal" aria-hidden="true" data-id="{{$category->id}}"></i>
-                        <i class="fa fa-times category_delete" data-toggle="modal" data-target="#deleteModal" aria-hidden="true" data-id="{{$category->id}}"></i>
-                    </span>
-                </li>
+                    <li class="list-group-item">{{ $category->category_name}}
+                        <span class="icon_cont">
+                            <i class="fa fa-pencil-square-o category_edit" data-toggle="modal" data-target="#editModal" aria-hidden="true" data-id="{{ $category->id }}"></i>
+                            <i class="fa fa-times category_delete" data-toggle="modal" data-target="#deleteModal" aria-hidden="true" data-id="{{ $category->id }}"></i>
+                        </span>
+                    </li>
                 @endforeach
             </ul>
-       </div>
-       <div class="col-md-3"></div>
-       <!-- <div class="col-md-7">
-           <h2>Posts</h2>
-           <div id = "post">
-               
-           </div>
-       </div> -->
+        </div>
+        <div class="col-md-3"></div>
     </div>
 </div>
 @endsection

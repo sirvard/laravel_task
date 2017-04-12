@@ -4,7 +4,6 @@ namespace App;
 
 use App\Category;
 use App\Post;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -36,5 +35,3 @@ class User extends Authenticatable
     }
 
 }
-
-
