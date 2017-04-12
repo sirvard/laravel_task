@@ -17,8 +17,8 @@ class SocialService
         } else {
 
             $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'facebook'
+                'provider_user_id'  => $providerUser->getId(),
+                'provider'          => 'facebook'
             ]);
 
             $user = User::whereEmail($providerUser->getEmail())->first();
@@ -26,9 +26,9 @@ class SocialService
             if (! $user) {
 
                 $user = User::create([
-                    'email' => $providerUser->getEmail(),
-                    'name' => $providerUser->getName(),
-                    'password' => ''
+                    'email'     => $providerUser->getEmail(),
+                    'name'      => $providerUser->getName(),
+                    'password'  => ''
                 ]);
             }
 

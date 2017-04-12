@@ -104,7 +104,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $new_post = $request->input('edit_post');
-        $response = $this->post->where('id',$id)->update(['post' => $new_post]);
+        $response = $this->post->where('id', $id)->update(['post' => $new_post]);
 
         if ($response) {
             return redirect()->back()->with('edited', "Post has edited successfully!");

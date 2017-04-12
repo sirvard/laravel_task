@@ -28,6 +28,6 @@ class HomeController extends Controller
         $user = Auth::user();
         $id = Auth::id();   
         $categories = DB::table('categories')->where('user_id', $id)->get();
-        return view('home', ['user' => $user , 'categories' =>$categories]);
+        return view('home', ['user' => $user , 'categories' => $categories]);
     }
 }

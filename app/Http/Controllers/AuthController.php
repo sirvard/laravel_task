@@ -21,7 +21,7 @@ class AuthController extends Controller
 		$authUser = $service->createOrGetUser($user);
 		
 		if ($authUser) {
-			Auth::login($authUser,true);
+			Auth::login($authUser, true);
             return redirect('home');
 		}
     }
