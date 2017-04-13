@@ -27,8 +27,12 @@ class PostController extends Controller
         $posts = [];
         $user = $this->user->where('id', Auth::id())->first();
         $categories_ids = $user->categories->pluck('id')->toArray();
-        $posts = $this->post->whereIn('category_id', $categories_ids)->get();
-        return view('post', ['posts' => $posts]);
+        //dd($this->post->paginate(8)->whereIn('category_id', $categories_ids));
+        //$posts = $this->post->paginate(2)
+        $posts = $this->post->paginate(4)->whereIn('category_id', $categories_ids)->all();
+        $posts_array = $this->post->whereIn('category_id', $categories_ids)->paginate(4);
+        //dd($posts_array);
+        return view('post', ['posts' => $posts, 'paginate' => $posts_array]);
     }
 
     /**

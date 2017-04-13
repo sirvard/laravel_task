@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <form method="POST"  action="/editPost" class="editPost">
-                 {{ csrf_field() }}
+                    {{ csrf_field() }}
                     <div class="form-group center">
                     	<textarea class="form-control edit_post" name="edit_post"></textarea>
                         <input type="hidden" name="_method" class="hidden" value="PUT">
@@ -77,7 +77,7 @@
    			@foreach($posts as $post)
    				<li class="list-group-item post_list">
    					<div class="cont">
-	   					<h4>{{$post->category->category_name}}</h4>
+	   					<h4>{{ $post->category->category_name }}</h4>
 	   					<p class="post">{{ $post->post }}</p>
 	   				</div>
    					<span class="icon_cont">
@@ -87,6 +87,7 @@
                     <div class="time">{{ $post->created_at }}</div>
    				</li>
    			@endforeach
+            {{ $paginate->render() }}
    			</ul>
    		</div>
    		<div class="col-md-1"></div>
