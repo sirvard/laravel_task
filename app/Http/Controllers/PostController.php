@@ -8,6 +8,7 @@ use App\Category;
 use App\User;
 use Auth;
 use Validator;
+use App\Contracts\PostServiceInterface;
 
 class PostController extends Controller
 {
@@ -22,16 +23,11 @@ class PostController extends Controller
         $this->user = $user;
     }
 
-    public function index()
-    {
-        $posts = [];
-        $user = $this->user->where('id', Auth::id())->first();
-        $categories_ids = $user->categories->pluck('id')->toArray();
-        //dd($this->post->paginate(8)->whereIn('category_id', $categories_ids));
-        //$posts = $this->post->paginate(2)
-        $posts = $this->post->paginate(4)->whereIn('category_id', $categories_ids)->all();
-        $posts_array = $this->post->whereIn('category_id', $categories_ids)->paginate(4);
-        //dd($posts_array);
+    public function index(PostServiceInterface $post_service)
+    {   
+        $posts = []; 
+        $posts = $post_service->getAllPosts($posts);
+        $posts_array = $post_service->getAllPostsInArray($posts);
         return view('post', ['posts' => $posts, 'paginate' => $posts_array]);
     }
 
@@ -51,7 +47,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PostServiceInterface $post_service)
     {
         $validator = Validator::make($request->all(), [
             'post' => 'required',
@@ -63,15 +59,12 @@ class PostController extends Controller
 
         $post = $request->input('post');
         $category_id = $request->input('category_id');
-        $resp = $this->post->create([
-            'post'        => $post,
-            'category_id' => $category_id,
-        ]);
+        $response = $post_service->storePost($category_id,$post);
 
-        if ($resp) {
+        if ($response) {
             return redirect()->back()->with('yes', 'Post has added successfully!');
         } else {
-            return redirect()->back->with('fail', 'Something went wrong!');
+            return redirect()->back()->with('fail', 'Something went wrong!');
         }
         
     }
@@ -105,10 +98,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PostServiceInterface $post_service, $id)
     {
         $new_post = $request->input('edit_post');
-        $response = $this->post->where('id', $id)->update(['post' => $new_post]);
+        $response = $post_service->editPost($id, $new_post);
 
         if ($response) {
             return redirect()->back()->with('edited', "Post has edited successfully!");
@@ -123,12 +116,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PostServiceInterface $post_service, $id)
     {
-        $res = $this->post->where('id', $id)->delete();
+        $res = $post_service->deletePost($id);
 
         if ($res) {
-            return redirect()->back();
+            return redirect()->back()->with('msg', 'Post has deleted successfully!');
         }
     }
 }

@@ -73,6 +73,13 @@
                     {{ session('error_msg') }}
                 </div>
             @endif
+
+            @if (session('msg'))
+                <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ session('msg') }}
+                </div>
+            @endif
    			<ul class="list-group">
    			@foreach($posts as $post)
    				<li class="list-group-item post_list">
@@ -87,7 +94,7 @@
                     <div class="time">{{ $post->created_at }}</div>
    				</li>
    			@endforeach
-            {{ $paginate->render() }}
+            {{ $paginate->links() }}
    			</ul>
    		</div>
    		<div class="col-md-1"></div>

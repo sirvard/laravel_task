@@ -1,10 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Services;
 
 use Laravel\Socialite\Contracts\User as ProviderUser;
+use App\SocialAccount;
+use App\Contracts\SocialServiceInterface;
 
-class SocialService 
+class SocialService implements SocialServiceInterface
 {
     public function createOrGetUser(ProviderUser $providerUser)
     {

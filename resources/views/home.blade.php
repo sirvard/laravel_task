@@ -21,7 +21,7 @@
                         </span>
                     @endif
                 </div>
-                <button type="submit" class="btn btn-default" name='upload'>Upload photo</button>
+                <button type="submit" class="btn btn-default" name='upload'>@if($user->avatar)Update photo @else Upload photo @endif</button>
             </form>
         </div>
         

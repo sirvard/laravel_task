@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ImageRequest;
+use App\Contracts\UserServiceInterface;
 
 class UserController extends Controller
 {
@@ -79,19 +78,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ImageRequest $request, $id)
+    public function update(ImageRequest $request, UserServiceInterface $userService, $id)
     {   
-
-        if ($id == Auth::id()) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imagename = time() . '.' . $image->extension();
-            $request->file('image')->move(public_path() . '/images/', $imagename);
-            $user = $this->user->where('id', $id)->first();
-            $inputs['avatar'] = $imagename;
-            $user->update($inputs);
-            return redirect()->action('HomeController@index');
-        }
-        
+            $uploadImage = $userService->updateProfilePicture($id, $image);
+            
+            if ($uploadImage) {
+                return redirect()->action('HomeController@index');
+            } else {
+                return redirect()->back()->with('fail', 'Something went wrong!');
+            }
+        }        
     }
 
     /**

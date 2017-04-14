@@ -70,6 +70,12 @@
                 </div>
             @endif
 
+            @if (session('error_msg'))
+                <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ session('msg') }}
+                </div>
+            @endif
             @if (session('msg'))
                 <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

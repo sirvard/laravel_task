@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+Use App\Category;
 
 class HomeController extends Controller
 {
@@ -13,9 +14,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Category $category)
     {
         $this->middleware('auth');
+        $this->category = $category;
     }
 
     /**
@@ -26,8 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $id = Auth::id();   
-        $categories = DB::table('categories')->where('user_id', $id)->get();
+        $categories = $this->category->where('user_id', Auth::id())->get();
         return view('home', ['user' => $user , 'categories' => $categories]);
     }
 }

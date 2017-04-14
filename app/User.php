@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Category;
-use App\Post;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -17,7 +16,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar'
+        'name', 
+        'email',
+        'password',
+        'avatar'
     ];
 
     /**
@@ -26,7 +28,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     public function categories()

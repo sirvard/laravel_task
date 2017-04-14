@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Category;
 use Validator;
+use App\Contracts\CategoryServiceInterface;
 
 class CategoryController extends Controller
 {
@@ -20,10 +21,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CategoryServiceInterface $category_service)
     {
-        $id = Auth::id();
-        $category = $this->category->get()->where('user_id', $id);
+        $category = $category_service->getCategoriesByUserId(Auth::id());
         return view('categories', ['category' => $category]);
     }
 
@@ -43,7 +43,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CategoryServiceInterface $category_service)
     {
         $validator = Validator::make($request->all(), [
             'category_name' => 'required',
@@ -54,11 +54,7 @@ class CategoryController extends Controller
         }
 
         $category_name = $request->input('category_name');
-        $user_id = Auth::user()->id;
-        $response = $this->category->create([
-            'category_name'  => $category_name,
-            'user_id'        => $user_id   
-        ]);
+        $response = $category_service->storeCategory($category_name);
 
         if ($response) {
             return redirect()->back()->with('success', 'Category has created successfully!');
@@ -96,10 +92,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, CategoryServiceInterface $category_service, $id)
     {
-        $new_category = $request->input('edit_category');
-        $response = $this->category->where('id', $id)->update(['category_name' => $new_category]);
+        $new_category_name = $request->input('edit_category');
+        $response = $category_service->updateCategoryName($id, $new_category_name);
 
         if ($response) {
             return redirect()->back()->with('edited', 'Category edited successfully!');
@@ -114,14 +110,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryServiceInterface $category_service, $id)
     {
-        $res = $this->category->where('id', $id)->delete();
+        $response = $category_service->deleteCategory($id);
 
-        if ($res) {
-            return redirect()->back();
+        if ($response) {
+            return redirect()->back()->with('msg', 'Category deleted successfully!');
         } else {
-            return redirect()->back()->with('msg', 'Something went wrong!');
+            return redirect()->back()->with('error_msg', 'Something went wrong!');
         }
     }
 }
