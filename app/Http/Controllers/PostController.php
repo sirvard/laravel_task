@@ -23,11 +23,11 @@ class PostController extends Controller
         $this->user = $user;
     }
 
-    public function index(PostServiceInterface $post_service)
+    public function index(PostServiceInterface $postService)
     {   
         $posts = []; 
-        $posts = $post_service->getAllPosts($posts);
-        $posts_array = $post_service->getAllPostsInArray($posts);
+        $posts = $postService->getAllPosts($posts);
+        $posts_array = $postService->getAllPostsInArray($posts);
         return view('post', ['posts' => $posts, 'paginate' => $posts_array]);
     }
 
@@ -47,7 +47,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PostServiceInterface $post_service)
+    public function store(Request $request, PostServiceInterface $postService)
     {
         $validator = Validator::make($request->all(), [
             'post' => 'required',
@@ -59,7 +59,7 @@ class PostController extends Controller
 
         $post = $request->input('post');
         $category_id = $request->input('category_id');
-        $response = $post_service->storePost($category_id,$post);
+        $response = $postService->storePost($category_id,$post);
 
         if ($response) {
             return redirect()->back()->with('yes', 'Post has added successfully!');
@@ -98,10 +98,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PostServiceInterface $post_service, $id)
+    public function update(Request $request, PostServiceInterface $postService, $id)
     {
         $new_post = $request->input('edit_post');
-        $response = $post_service->editPost($id, $new_post);
+        $response = $postService->editPost($id, $new_post);
 
         if ($response) {
             return redirect()->back()->with('edited', "Post has edited successfully!");
@@ -116,9 +116,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PostServiceInterface $post_service, $id)
+    public function destroy(PostServiceInterface $postService, $id)
     {
-        $res = $post_service->deletePost($id);
+        $res = $postService->deletePost($id);
 
         if ($res) {
             return redirect()->back()->with('msg', 'Post has deleted successfully!');
