@@ -10,7 +10,18 @@
             @else
                 <img src=" {{ asset('images/profile_pic.png') }}" alt=""  class="prof_pic">
             @endif
-            <form action="/user/{{\Auth::id()}}" method="post" enctype="multipart/form-data">
+            {!! Form::open(['url' => url('/user/'.$user->id), 'method' => 'PUT',  'files' => true]) !!}
+                <div class="form-group ">
+                    {!! Form::file('image', array('class' => 'inp')) !!}
+                    @if ($errors->has('image'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('image') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                {!! Form::button('Upload photo', array('class' => 'btn btn-default','type' => 'submit')) !!}
+            {!! Form::close() !!}
+            <!-- <form action="/user/{{\Auth::id()}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group ">
@@ -22,7 +33,7 @@
                     @endif
                 </div>
                 <button type="submit" class="btn btn-default" name='upload'>@if($user->avatar)Update photo @else Upload photo @endif</button>
-            </form>
+            </form> -->
         </div>
         
         <div class="col-md-4"></div>
@@ -55,14 +66,13 @@
                 </div>
             @endif
             <h2>Categories</h2>
-            <form action="/addCategory" method="post">
-                {{ csrf_field() }}
-                 <div class="form-group">
-                    <label for="cat">Category</label>
-                    <input type="text" class="form-control" id="cat" name="category_name">
-                    <button type="submit" class="btn btn-default">Add Category</button>
+            {!! Form::open(['url' => url('/addCategory'), 'method' => 'Post']) !!}
+                <div class="form-group">
+                    {!! Form::label('cat', 'Category') !!}
+                    {!! Form::text('category_name', null, array('class' => 'form-control'))!!}
+                    {!! Form::button('Add Category', array('class' => 'btn btn-default','type' => 'submit')) !!}
                 </div>
-            </form>
+            {!! Form::close(); !!}
        </div>
 
        <div class="col-md-2">        </div>
@@ -82,24 +92,22 @@
                 </div>
             @endif
             <h2>Add Post</h2>
-            <form action="/addPost" method="post">
-                {{ csrf_field() }}
-
+            {!! Form::open(['url' => url('/addPost'), 'method' => 'Post']) !!}
                 <div class="form-group">
-                    <label>Choose Category</label>
-                    <select id="choose_cat"  name="category_id">
+                    {!! Form::label('choose_cat', 'Choose Category') !!}
+                    <select id="choose_cat" name='category_id'>
                         @foreach ($categories as $category)
                             <option value ="{{$category->id}}">{{ $category->category_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-
-                    <label for="cat">Post</label>
-                    <textarea class="form-control" rows="5" id="comment" name="post"></textarea>
-                    <button type="submit" class="btn btn-default">Add Post</button>
+                    {!! Form::label('Post') !!}
+                    {!! Form::textarea('post', null, array('class' => 'form-control', 'size' => '4x4'))!!}
+                    {!! Form::button('Add Post', array('class' => 'btn btn-default','type' => 'submit')) !!}
                 </div>
-            </form> 
+            {!! Form::close() !!}
+            
        </div>
     </div>
 </div>

@@ -83,13 +83,12 @@ class UserController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $uploadImage = $userService->updateProfilePicture($id, $image);
-            
             if ($uploadImage) {
                 return redirect()->action('HomeController@index');
             } else {
                 return redirect()->back()->with('fail', 'Something went wrong!');
             }
-        }        
+        }  
     }
 
     /**

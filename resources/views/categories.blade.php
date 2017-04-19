@@ -7,19 +7,16 @@
     
       <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                
+            <div class="modal-header">        
                 <h4 class="modal-title">Edit Category</h4>
             </div>
             <div class="modal-body">
-                <form method="POST"  action="/editCategory" class="edit">
-                 {{ csrf_field() }}
-                    <div class="form-group center">
-                        <input type="text" class="form-control edit_category" value name="edit_category" >
-                        <input type="hidden" name="_method" class="hidden" value="PUT">
-                        <button type="submit" class="btn btn-default" name="edit">Edit Category</button>
-                    </div>
-                </form>
+                {!! Form::open(['url' => url('/editCategory/'), 'method' => 'PUT', 'class' => 'edit']) !!}
+                <div class="form-group center">
+                    {!! Form::text('edit_category', null, array('class' => 'form-control edit_category')) !!}
+                    {!! Form::button('Edit Category', array('class' => 'btn btn-default','type' => 'submit')) !!}
+                </div>
+                {!! Form::close() !!}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -40,13 +37,10 @@
             </div>
             <div class="modal-body">
                 <p>Are you sure?</p>
-                <form action="/delete" method="post" class="del">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" name="yes" class="btn btn-default confirm" >Yes</button>
-                    <button type="submit" class="btn btn-default ignore" data-dismiss="modal">No</button>
-                </form>
-                
+                {!! Form::open(['url' => url('/delete/'), 'method' => 'DELETE', 'class' => 'del']) !!}
+                    {!! Form::button('Yes', array('class' => 'btn btn-default confirm','type' => 'submit')) !!}
+                    {!! Form::button('No', array('class' => 'btn btn-default ignore','type' => 'submit', 'data-dismiss' => 'modal')) !!}
+                {!! Form::close() !!}                
             </div>
             <div class="modal-footer">
                
