@@ -1,0 +1,23 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" ng-controller="CategoryController">
+            <div inform></div>
+            <h2>Categories</h2>
+           
+
+            <ul class="list-group">
+                
+                <li class="list-group-item" ng-repeat="category in categories" > {{category.category_name}}
+                    <span class="icon_cont">
+                        <i class="fa fa-pencil-square-o 
+                        " data-toggle="modal" data-target="#editModal" aria-hidden="true" data-id="{{category.id}}"></i>
+                        <i class="fa fa-times category_delete" ng-click="deleteCategory(category.id)" data-target="#deleteModal" aria-hidden="true" data-id="{{category.id}}"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

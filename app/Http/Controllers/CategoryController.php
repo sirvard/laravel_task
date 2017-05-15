@@ -7,6 +7,8 @@ use Auth;
 use App\Category;
 use Validator;
 use App\Contracts\CategoryServiceInterface;
+use App\Http\Requests\CategoryRequest;
+
 
 class CategoryController extends Controller
 {
@@ -23,8 +25,8 @@ class CategoryController extends Controller
      */
     public function index(CategoryServiceInterface $categoryService)
     {
-        $category = $categoryService->getCategoriesByUserId(Auth::id());
-        return view('categories', ['category' => $category]);
+        $categories = $categoryService->getCategoriesByUserId(Auth::id());
+        return response()->json(['status' => 'success', 'categories' => $categories]);   
     }
 
     /**
@@ -43,23 +45,24 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, CategoryServiceInterface $categoryService)
+    public function store(CategoryRequest $request, CategoryServiceInterface $categoryService)
     {
-        $validator = Validator::make($request->all(), [
+        //dd($request->input('category'));
+/*        $validator = Validator::make($request->all(), [
             'category_name' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->with('msg', "Fill the field!");
-        }
+        }*/
 
-        $category_name = $request->input('category_name');
+        $category_name = $request->input('category');
         $response = $categoryService->storeCategory($category_name);
 
         if ($response) {
-            return redirect()->back()->with('success', 'Category has created successfully!');
+            return response()->json(['status' => 'success', 'message' => 'Category added successfully!']); 
         } else {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
         }
     }
 
@@ -112,12 +115,12 @@ class CategoryController extends Controller
      */
     public function destroy(CategoryServiceInterface $categoryService, $id)
     {
-        $response = $categoryService->deleteCategory($id);
 
+        $response = $categoryService->deleteCategory($id);
         if ($response) {
-            return redirect()->back()->with('msg', 'Category deleted successfully!');
+            return response()->json(['status' => 'success', 'message' => 'Category deleted successfully!']); 
         } else {
-            return redirect()->back()->with('error_msg', 'Something went wrong!');
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
         }
     }
 }

@@ -1,0 +1,41 @@
+.user_inform { 
+	padding-bottom: 50px;
+	border-bottom: 1px solid;
+}
+
+.prof_pic {
+	max-height: 350px;
+	max-width: 350px;
+}
+
+.icon_cont {
+	display: inline-block;
+	float: right;
+	font-size: 20px;
+	width: 23%;
+}
+
+.icon_cont i {
+	cursor: pointer;
+	margin: 0px 7px;
+}
+
+.cont {
+	width: 75%;
+	float: left;
+}
+
+.cont h4 {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.post_list {
+	overflow: hidden;
+}
+
+.time {
+	clear: both;
+	float: right;
+	font-size: 12px;
+}

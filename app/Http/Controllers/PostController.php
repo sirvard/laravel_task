@@ -49,22 +49,23 @@ class PostController extends Controller
      */
     public function store(Request $request, PostServiceInterface $postService)
     {
-        $validator = Validator::make($request->all(), [
+        /*$validator = Validator::make($request->all(), [
             'post' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->with('fail', "Fill all fields!");
-        }
+        }*/
+        //dd($request->all());
 
         $post = $request->input('post');
-        $category_id = $request->input('category_id');
+        $category_id = $request->input('category');
         $response = $postService->storePost($category_id,$post);
 
         if ($response) {
-            return redirect()->back()->with('yes', 'Post has added successfully!');
+            return response()->json(['status' => 'success', 'message' => 'Post added successfully!']); 
         } else {
-            return redirect()->back()->with('fail', 'Something went wrong!');
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
         }
         
     }

@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row user_inform">
+        <div class="col-md-4" ng-controller='HomeController'>
+        <div inform></div>
+            <img src="../images/profile_pic.png" alt=""  class="prof_pic">
+            
+            <div class="form-group">
+                  <input type="file" ngf-select ng-model="picFile" name="file"    
+                  accept="image/*" ngf-max-size="2MB"
+                  ngf-model-invalid="errorFile" class="inp">
+                  <i ng-show="myForm.file.$error.maxSize">File too large 
+                  {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+              </div>
+
+              <div class="form-group">
+                  <button ng-click="uploadPic(picFile)" class="btn btn-default" type="submit">Add Post</button>
+              </div>
+
+
+        </div>
+
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
+</div> 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5" ng-controller="HomeController">
+            <h2>Categories</h2>
+            <div class="form-group">
+                <label for="cat">Category</label>
+                <input type="text" class="form-control" id="cat"  ng-model="category_name">
+                <button ng-click="addCategory()"  class="btn btn-default">Add Category</button>
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-md-5">
+
+            <h2>Add Post</h2>
+            <div class="form-group">
+                <label>Choose Category</label>
+                <select name="" ng-model='category_id' >
+                    <option ng-repeat="category in categories" value="{{category.id}}" ng-model='category_id'>
+                        {{ category.category_name }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Post</label>
+                <textarea class="form-control" rows="5" id="comment" ng-model="post"></textarea>
+                <button type="submit" ng-click= "addPost()" class="btn btn-default">Add Post</button> 
+            </div>
+        </div>
+    </div>
+</div>

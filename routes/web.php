@@ -32,12 +32,18 @@ Route::get('/posts', 'PostController@index');
 Route::delete('/delete/{id}', 'CategoryController@destroy');
 //Route::post('/editCategory', 'CategoryController@edit');
 Route::post('/addPost', 'PostController@store'); 
-/*Route::delete('/delete/{delete_id}', function($id){
-	
-});*/
 Route::resource('/editCategory', 'CategoryController');
 Route::resource('/editPost', 'PostController');
 Route::delete('/deletePost/{id}', 'PostController@destroy');
 
+Route::resource('posts', 'PostsController');
 
+Route::resource('posts.categories', 'PostsCategoriesController');
 
+Route::get('/api/index', 'HomeController@index');
+Route::post('/api/user', 'UserController@update');
+Route::post('/api/add-category', 'CategoryController@store');
+Route::post('/api/add-post', 'PostController@store');
+Route::get('/api/categories', "CategoryController@index");
+Route::delete('/api/delete-category/{id}', "CategoryController@destroy");
+//Route::get('/api/posts', "PostController@index")

@@ -27,8 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $user = Auth::user();
+        // $categories = $this->category->where('user_id', Auth::id())->get();
+        // return view('home', ['user' => $user , 'categories' => $categories]);
         $user = Auth::user();
         $categories = $this->category->where('user_id', Auth::id())->get();
-        return view('home', ['user' => $user , 'categories' => $categories]);
+        return response()->json(['status' => 'success', 'user' => $user, 'categories' => $categories]);   
+
     }
 }

@@ -78,15 +78,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ImageRequest $request, UserServiceInterface $userService, $id)
-    {   
+    public function update(ImageRequest $request, UserServiceInterface $userService)
+    {  
+        
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $uploadImage = $userService->updateProfilePicture($id, $image);
+            $uploadImage = $userService->updateProfilePicture($request->input('id'), $image);
             if ($uploadImage) {
-                return redirect()->action('HomeController@index');
+                return response()->json(['status' => 'success', 'message' => 'File uploaded successfully!']);   
             } else {
-                return redirect()->back()->with('fail', 'Something went wrong!');
+                return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
             }
         }  
     }
