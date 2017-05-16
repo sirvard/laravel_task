@@ -1,0 +1,22 @@
+<div class="container">
+   	<div class="row">
+   		<div class="col-md-1"></div>
+   		<div class="col-md-10" ng-controller="PostController">
+            <div inform></div>
+   			<ul class="list-group">
+   				<li class="list-group-item post_list" ng-repeat='post in posts'>
+   					<div class="cont">
+	   					<h4>{{post.category_id}}</h4>
+	   					<p class="post">{{post.post}}</p>
+	   				</div>
+   					<span class="icon_cont">
+                        <i class="fa fa-pencil-square-o post_edit" data-toggle="modal" data-target="#editPost" aria-hidden="true"></i>
+                        <i class="fa fa-times post_delete" data-toggle="modal" ng-click="deletePost(post.id)" data-target="#deleteModal" aria-hidden="true" ></i>
+                    </span>
+                    <div class="time">{{post.created_at}}</div>
+   				</li>
+   			</ul>
+   		</div>
+   		<div class="col-md-1"></div>
+   	</div>
+</div>

@@ -1,3 +1,27 @@
+<!-- <div class="modal fade" id="editModal" role="dialog" ng-controller="CategoryController">
+    <div class="modal-dialog">
+    
+        <div class="modal-content">
+            <div class="modal-header">        
+                <h4 class="modal-title">Edit Category</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group center">
+                    <input type="text" ng-model="new_category" class="form-control" placeholder ="{{category.category_name}}">
+                    <input type="hidden" class="hidden" ng-model="editCategory_id" value="{{category.id}}">
+                    <button class='btn btn-default' ng-click='editCategory(category.id)'>Edit Category</button>
+                    
+                </div>
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      
+    </div>
+</div>
+ -->
 
 <div class="container">
     <div class="row">
@@ -11,8 +35,10 @@
                 
                 <li class="list-group-item" ng-repeat="category in categories" > {{category.category_name}}
                     <span class="icon_cont">
-                        <i class="fa fa-pencil-square-o 
-                        " data-toggle="modal" data-target="#editModal" aria-hidden="true" data-id="{{category.id}}"></i>
+                        <a ui-sref='edit-category({id: category.id})'>
+                            <i class="fa fa-pencil-square-o 
+                            " data-toggle="modal" data-target="#editModal" aria-hidden="true" data-id="{{category.id}}"></i>
+                        </a>
                         <i class="fa fa-times category_delete" ng-click="deleteCategory(category.id)" data-target="#deleteModal" aria-hidden="true" data-id="{{category.id}}"></i>
                     </span>
                 </li>

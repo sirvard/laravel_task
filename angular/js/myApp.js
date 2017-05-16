@@ -1,1 +1,5 @@
-var app = angular.module('myApp', ['ui.router', 'inform', 'ngFileUpload']);
+var app = angular.module('myApp', [
+	'ui.router', 
+	'inform', 
+	'ngFileUpload'
+]);

@@ -30,9 +30,20 @@ class HomeController extends Controller
         // $user = Auth::user();
         // $categories = $this->category->where('user_id', Auth::id())->get();
         // return view('home', ['user' => $user , 'categories' => $categories]);
+        return redirect('/app');
+
+    }
+
+    public function getData()
+    {
         $user = Auth::user();
         $categories = $this->category->where('user_id', Auth::id())->get();
         return response()->json(['status' => 'success', 'user' => $user, 'categories' => $categories]);   
+    }
 
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json(['status' => 'success']);
     }
 }

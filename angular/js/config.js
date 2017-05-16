@@ -17,12 +17,18 @@ angular.module("myApp").config(function($stateProvider, $urlRouterProvider) {
             }]
 		}
 	})
-	/*.state('posts'), {
-		url: "/posts",
-		templateUrl:"views/posts.html",
-		controller: "PostController"
-	}*/
-	
+	.state('posts',{
+		url: '/posts',
+		templateUrl: 'views/posts.html',
+		controller: 'PostController',
 
+	})
+	.state('edit-category', {
+		url: '/categories/:id/edit',
+		templateUrl: 'views/edit-category.html',
+	})
+	/*.state('editCategoory', {
+		
+	})*/
   	$urlRouterProvider.otherwise("/");
 });

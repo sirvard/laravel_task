@@ -28,7 +28,8 @@ class PostController extends Controller
         $posts = []; 
         $posts = $postService->getAllPosts($posts);
         $posts_array = $postService->getAllPostsInArray($posts);
-        return view('post', ['posts' => $posts, 'paginate' => $posts_array]);
+        return response()->json(['status' => 'success', 'posts' => $posts]);   
+        //return view('post', ['posts' => $posts, 'paginate' => $posts_array]);
     }
 
     /**
@@ -119,10 +120,11 @@ class PostController extends Controller
      */
     public function destroy(PostServiceInterface $postService, $id)
     {
-        $res = $postService->deletePost($id);
-
-        if ($res) {
-            return redirect()->back()->with('msg', 'Post has deleted successfully!');
+        $response = $postService->deletePost($id);
+        if ($response) {
+            return response()->json(['status' => 'success', 'message' => 'Post deleted successfully!']); 
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
         }
     }
 }

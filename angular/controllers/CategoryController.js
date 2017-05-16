@@ -21,7 +21,6 @@ angular.module('myApp').controller('CategoryController',
 	            		inform.add(response.data.message, {
 	            		    "type": "success"
 	            		});
-	            		$state.go('categories');
 	            	} else if(response.data.status == 'error') {
 	            		inform.add(response.data.message, {
 	            		    "type": "danger"
@@ -29,6 +28,10 @@ angular.module('myApp').controller('CategoryController',
 	            	}
 				})
 			}
+
 		}
+		/*if($state.current.name == 'edit-category') {
+			
+		}*/
 
 }])

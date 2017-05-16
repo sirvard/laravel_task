@@ -1,6 +1,6 @@
-angular.module('myApp').controller('HomeController',
-	['$scope', '$http', '$state','$location', '$rootScope','Upload', 'inform',
-	function($scope, $http, $state, $location, $rootScope, Upload, inform) {
+ angular.module('myApp').controller('HomeController',
+	['$scope', '$http', '$state','$location', '$rootScope','Upload', 'inform', '$window',
+	function($scope, $http, $state, $location, $rootScope, Upload, inform, $window) {
 		
 		if($state.current.name == 'index'){   
 	      	$http.get('/api/index').then(function(response) {
@@ -75,6 +75,16 @@ angular.module('myApp').controller('HomeController',
 		                } 
 		            }
 	    		}); 
+	        }
+
+	        $rootScope.logout = function() {
+	        	$http.get('/api/logout').then(function(response) {
+	        		if(response.data.status == 'success') {
+	        			$window.location.href = 'http://blog.dev';
+	        		}
+	        	}, function(error) {
+
+	        	});
 	        }
 
 	        $scope.addPost = function(){

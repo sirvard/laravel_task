@@ -80,7 +80,6 @@ class UserController extends Controller
      */
     public function update(ImageRequest $request, UserServiceInterface $userService)
     {  
-        
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $uploadImage = $userService->updateProfilePicture($request->input('id'), $image);
