@@ -1,0 +1,21 @@
+{
+  "name": "angular",
+  "homepage": "https://github.com/sirvard/laravel_task",
+  "authors": [
+    "Sirvard <siralexanyan7@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-inform": "^0.0.18"
+  }
+}
