@@ -84,6 +84,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    
     {
         //
     }
@@ -100,7 +101,8 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resou
+     rce in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id

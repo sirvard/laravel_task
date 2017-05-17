@@ -1,4 +1,8 @@
-angular.module("myApp").config(function($stateProvider, $urlRouterProvider) {
+angular.module("myApp")
+.config(config);
+
+
+function config($stateProvider, $urlRouterProvider) {
      
 	$stateProvider
 	.state('index', {
@@ -35,4 +39,4 @@ angular.module("myApp").config(function($stateProvider, $urlRouterProvider) {
 	})
 	
   	$urlRouterProvider.otherwise("/");
-});
+}

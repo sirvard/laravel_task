@@ -26,12 +26,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-5" ng-controller="HomeController">
+        <div class="col-md-5" ng-controller="HomeController as home">
             <h2>Categories</h2>
             <div class="form-group">
                 <label for="cat">Category</label>
-                <input type="text" class="form-control" id="cat"  ng-model="category_name">
-                <button ng-click="addCategory()"  class="btn btn-default">Add Category</button>
+                <input type="text" class="form-control" id="cat"  ng-model="home.category_name">
+                <button ng-click="home.addCategory()"  class="btn btn-default">Add Category</button>
             </div>
         </div>
 
