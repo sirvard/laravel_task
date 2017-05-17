@@ -5,8 +5,8 @@
             <div inform></div>
             <h2>Edit Category</h2>
             <div class='form-group'>
-                <input class='form-control' type="text" >
-                <button ng-click='editCategory()'>Edit Post</button>
+                <input class='form-control' type="text" ng-value="category.category_name" ng-model="new_name">
+                <button ng-click='editCategory(category.id)'>Edit Category</button>
             </div>           
 
         </div>

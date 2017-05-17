@@ -37,4 +37,9 @@ class CategoryService implements CategoryServiceInterface
 	{
 		return $this->category->where('id', $id)->delete();
 	}
+
+	public function getCategoriesById($id) 
+	{
+		return $this->category->find($id);
+	}
 }

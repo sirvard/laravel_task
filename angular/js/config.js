@@ -24,11 +24,15 @@ angular.module("myApp").config(function($stateProvider, $urlRouterProvider) {
 
 	})
 	.state('edit-category', {
-		url: '/categories/:id/edit',
+		url: '/categories/:id',
 		templateUrl: 'views/edit-category.html',
+		controller: 'CategoryController'
 	})
-	/*.state('editCategoory', {
-		
-	})*/
+	.state('edit-post', {
+		url: '/posts/:id',
+		templateUrl: 'views/edit-post.html',
+		controller: 'PostController'
+	})
+	
   	$urlRouterProvider.otherwise("/");
 });

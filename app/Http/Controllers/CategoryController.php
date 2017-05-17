@@ -29,6 +29,12 @@ class CategoryController extends Controller
         return response()->json(['status' => 'success', 'categories' => $categories]);   
     }
 
+    public function getCategory(CategoryServiceInterface $categoryService, $id)
+    {
+        $category = $categoryService->getCategoriesById($id);
+        return response()->json(['status' => 'success', 'category' => $category]);   
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -97,13 +103,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, CategoryServiceInterface $categoryService, $id)
     {
-        $new_category_name = $request->input('edit_category');
+        //dd($request->all());
+        $new_category_name = $request->input('new_category_name');
         $response = $categoryService->updateCategoryName($id, $new_category_name);
 
         if ($response) {
-            return redirect()->back()->with('edited', 'Category edited successfully!');
+            return response()->json(['status' => 'success', 'message' => 'Category edited successfully!']); 
         } else {
-            return redirect()->back()->with('error_msg', 'Something went wrong!');
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
         }
     }
 

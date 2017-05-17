@@ -44,7 +44,8 @@
     		            }
 	                });
 
-	            } else {
+	            }
+	            else {
 	            	inform.add('Please choose file!', {
 	            	    "type": "danger"
 	            	});
@@ -115,7 +116,6 @@
 		                } 
 		            }
 	    		});
-	        }
-	        
+	        }	        
 	  	}
 }]);

@@ -28,10 +28,30 @@ angular.module('myApp').controller('CategoryController',
 	            	}
 				})
 			}
+		}
+
+		if($state.current.name == 'edit-category') {
+			$http.get('/api/categories/'+$state.params.id).then(function(response) {
+				if (response.data.status == 'success') {
+					$scope.category = response.data.category;
+				}
+			})
+			
+			$scope.editCategory = function(category_id) {
+				console.log($scope.new_name);
+				$http.post('/api/categories/'+$state.params.id+'/edit', {id:category_id, new_category_name: $scope.new_name}).then(function(response){
+					if(response.data.status == 'success') {
+						inform.add(response.data.message, {
+							"type": "success" 
+						})
+					} else if (response.data.message == 'error') {
+						inform.add(response.data.message, {
+							"type" : "danger"
+						})
+					}
+				})
+			}
 
 		}
-		/*if($state.current.name == 'edit-category') {
-			
-		}*/
 
 }])

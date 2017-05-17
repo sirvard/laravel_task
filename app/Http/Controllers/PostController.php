@@ -32,6 +32,12 @@ class PostController extends Controller
         //return view('post', ['posts' => $posts, 'paginate' => $posts_array]);
     }
 
+    public function getPost(PostServiceInterface $postService, $id)
+    {
+        $post = $postService->getPostsById($id);
+        return response()->json(['status' => 'success', 'post' => $post]);   
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -102,13 +108,14 @@ class PostController extends Controller
      */
     public function update(Request $request, PostServiceInterface $postService, $id)
     {
-        $new_post = $request->input('edit_post');
+        //dd($request->all());
+        $new_post = $request->input('new_post');
         $response = $postService->editPost($id, $new_post);
 
         if ($response) {
-            return redirect()->back()->with('edited', "Post has edited successfully!");
+            return response()->json(['status' => 'success', 'message' => 'Post edited successfully!']); 
         } else {
-            return redirect()->back()->with('error_msg', 'Something went wrong!');
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);   
         }
     }
 

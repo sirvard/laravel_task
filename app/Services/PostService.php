@@ -48,4 +48,8 @@ class PostService implements PostServiceInterface
 	{
 		return $this->post->where('id', $id)->delete();
 	}
+	public function getPostsById($id) 
+	{
+		return $this->post->find($id);
+	}
 }

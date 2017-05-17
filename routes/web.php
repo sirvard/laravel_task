@@ -36,16 +36,20 @@ Route::resource('/editCategory', 'CategoryController');
 Route::resource('/editPost', 'PostController');
 Route::delete('/deletePost/{id}', 'PostController@destroy');
 
-Route::resource('posts', 'PostsController');
+//Route::resource('posts', 'PostsController');
 
-Route::resource('posts.categories', 'PostsCategoriesController');
+//Route::resource('posts.categories', 'PostsCategoriesController');
 
 Route::get('/api/index', 'HomeController@getData');
 Route::post('/api/user', 'UserController@update');
 Route::post('/api/add-category', 'CategoryController@store');
 Route::post('/api/add-post', 'PostController@store');
 Route::get('/api/categories', "CategoryController@index");
+Route::get('/api/categories/{id}', "CategoryController@getCategory");
+Route::get('/api/posts/{id}', "PostController@getPost");
 Route::delete('/api/delete-category/{id}', "CategoryController@destroy");
 Route::get('/api/posts', "PostController@index");
 Route::get('/api/logout', "HomeController@logout");
 Route::delete('/api/delete-post/{id}', "PostController@destroy");
+Route::post('/api/categories/{id}/edit', 'CategoryController@update');
+Route::post('/api/posts/{id}/edit', 'PostController@update');

@@ -10,7 +10,10 @@
 	   					<p class="post">{{post.post}}</p>
 	   				</div>
    					<span class="icon_cont">
-                        <i class="fa fa-pencil-square-o post_edit" data-toggle="modal" data-target="#editPost" aria-hidden="true"></i>
+                        <a ui-sref="edit-post({id: post.id})">
+                            <i class="fa fa-pencil-square-o post_edit" data-toggle="modal" data-target="#editPost" aria-hidden="true"></i>
+                        </a>
+                       
                         <i class="fa fa-times post_delete" data-toggle="modal" ng-click="deletePost(post.id)" data-target="#deleteModal" aria-hidden="true" ></i>
                     </span>
                     <div class="time">{{post.created_at}}</div>
