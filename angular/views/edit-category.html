@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6" ng-controller="CategoryController">
+        <div class="col-md-6">
             <div inform></div>
             <h2>Edit Category</h2>
             <div class='form-group'>
-                <input class='form-control' type="text" ng-value="category.category_name" ng-model="new_name">
-                <button ng-click='editCategory(category.id)'>Edit Category</button>
+                <input class='form-control' type="text" ng-value="cat.category.category_name" ng-model="cat.new_name">
+                <button ng-click='cat.editCategory(category.id)'>Edit Category</button>
             </div>           
 
         </div>

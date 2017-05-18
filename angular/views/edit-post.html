@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6" ng-controller="PostController">
+        <div class="col-md-6">
             <div inform></div>
             <h2>Edit Post</h2>
             <div class='form-group'>
-                <input class='form-control' type="text" ng-value="post.post" ng-model="new_post">
-                <button ng-click='editPost(post.id)'>Edit Post</button>
+                <input class='form-control' type="text" ng-value="post.post.post" ng-model="post.new_post">
+                <button ng-click='post.editPost(post.post.id)'>Edit Post</button>
             </div>           
 
         </div>

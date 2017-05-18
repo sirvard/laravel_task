@@ -1,23 +1,25 @@
 angular
 	.module('myApp')
 	.controller('HomeController', HomeController);
-	/*['$scope', '$http', '$state','$location', '$rootScope','Upload', 'inform', '$window',*/
+HomeController.$inject = ['$scope', '$http', '$state','$location', '$rootScope','Upload', 'inform', '$window']
 function HomeController($scope, $http, $state, $location, $rootScope, Upload, inform, $window) {
-	
+	var vm = this;
+
 	if($state.current.name == 'index'){   
       	$http.get('/api/index').then(function(response) {
       		if (response.data.status == 'success') {
-      			this.user = response.data.user;
+      			vm.user = response.data.user;
       			$rootScope.user = response.data.user;
-      			this.categories = response.data.categories;
+      			vm.categories = response.data.categories;
+                //console.log(vm.categories);
       		}
         })  
 
-        $scope.uploadPic = function(file) {
+        vm.uploadPic = function(file) {
             if (file) {
                 file.upload = Upload.upload({
                     url: '/api/user',
-                    data: {image: file, id: $scope.user.id },
+                    data: {image: file, id: vm.user.id },
                 });
 
                 file.upload.then(function (response) {
@@ -25,7 +27,7 @@ function HomeController($scope, $http, $state, $location, $rootScope, Upload, in
                 		inform.add(response.data.message, {
                 		    "type": "success"
                 		});
-                		console.log(response.config.data.image);
+                		//console.log(response.config.data.image);
                 	} else if (response.data.status == 'error') {
                 		inform.add(response.data.message, {
                 		    "type": "danger"
@@ -54,8 +56,8 @@ function HomeController($scope, $http, $state, $location, $rootScope, Upload, in
             }  
         }
 
-        this.addCategory = function(){
-        	$http.post('/api/add-category', {category: this.category_name}).then(function(response) {
+        vm.addCategory = function(){
+        	$http.post('/api/add-category', {category: vm.category_name}).then(function(response) {
         		if(response.data.status == 'success') {
             		inform.add(response.data.message, {
             		    "type": "success"
@@ -90,12 +92,12 @@ function HomeController($scope, $http, $state, $location, $rootScope, Upload, in
         	});
         }
 
-        $scope.addPost = function(){
-
+        vm.addPost = function(){
+            //console.log(vm.category_id);
         	/*console.log($scope.category_id);
         	return false;*/
-        	$http.post('/api/add-post', {category: $scope.category_id, post: $scope.post}).then(function(response){
-        		console.log(response);
+        	$http.post('/api/add-post', {category: vm.category_id, post: vm.post}).then(function(response){
+        		//console.log(response);
         		if (response.data.status == 'success') {
         			inform.add(response.data.message, {
         				'type' : 'success'
@@ -108,7 +110,7 @@ function HomeController($scope, $http, $state, $location, $rootScope, Upload, in
 	        }, function(error) {
     			if(error.status === 422) {
 	               	messages = error.data;
-	               	console.log(messages);
+	               	//console.log(messages);
 	               	for(i in messages) {
 	                   	for(j in messages[i]){
 	                       	inform.add(messages[i][j], {

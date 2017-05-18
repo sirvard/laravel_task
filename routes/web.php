@@ -53,3 +53,4 @@ Route::get('/api/logout', "HomeController@logout");
 Route::delete('/api/delete-post/{id}', "PostController@destroy");
 Route::post('/api/categories/{id}/edit', 'CategoryController@update');
 Route::post('/api/posts/{id}/edit', 'PostController@update');
+//Route::get('/api/posts', 'PostController@index');
